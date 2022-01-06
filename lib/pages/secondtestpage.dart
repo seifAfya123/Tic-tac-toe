@@ -15,6 +15,7 @@ class Secondtestpage extends StatefulWidget {
   Secondtestpage(this.player_vs_player, this.xo, this.player1, this.player2);
   // Secondtestpage __init__(this.player1, this.player2);
 // Secondtestpage(this.player1,this.player2);
+
   @override
   State<Secondtestpage> createState() => _SecondtestpageState();
 }
@@ -61,6 +62,19 @@ class _SecondtestpageState extends State<Secondtestpage> {
     Colors.black
   ];
   int playingCounter = 0;
+  String player = "O", opponent = "X";
+  void define_xo_players() {
+    player = widget.xo;
+    opponent = widget.xo == "X" ? "O" : "X";
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    define_xo_players();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,22 +227,142 @@ class _SecondtestpageState extends State<Secondtestpage> {
     );
   }
 
-  T getRandomElement<T>(List<T> list) {
-    final random = Random();
-    var i = random.nextInt(list.length);
-    return list[i];
+  // String player = 'O', opponent = 'X';
+
+  // String player = 'O', opponent = 'X';
+
+  void Move(x, y) {
+    int row = x;
+    int col = y;
   }
 
-  void computerTturn() {
-    for (var i = 0; i < locs.length; i++) {
-      int element = getRandomElement(locs);
-      if (boxbordindex_value[element] == " ") {
-        playingCounter++;
-        boxbordindex_value[element] = widget.xo == "X" ? "O" : "X";
-        // colorx[element] = widget.xo == "X" ? Colors.red : Colors.blue;
-        return;
+  bool isMovesLeft2(board) {
+    for (int i = 0; i < 9; i++) {
+      if (board[i] == ' ') {
+        return true;
       }
     }
+    return false;
+  }
+
+  int evaluate2(b) {
+    for (int row = 0; row < 9; row += 3) {
+      if (b[row] == b[row + 1] && b[row + 1] == b[row + 2]) {
+        if (b[row] == opponent)
+          return 10;
+        else if (b[row] == player) return -10;
+
+        ///
+      }
+    }
+
+    for (int col = 0; col < 3; col++) {
+      if (b[col] == b[col + 3] && b[col + 3] == b[col + 6]) {
+        if (b[col] == opponent)
+          return 10;
+        else if (b[col] == player) return -10;
+      }
+    }
+
+    if (b[0] == b[4] && b[4] == b[8]) {
+      if (b[0] == opponent)
+        return 10;
+      else if (b[0] == player) return -10;
+    }
+
+    if (b[2] == b[4] && b[4] == b[6]) {
+      if (b[2] == opponent)
+        return 10;
+      else if (b[2] == player) return -10;
+    }
+
+    return 0;
+  }
+
+  int minimax2(board, depth, isMax) {
+    int score = evaluate2(board);
+
+    if (score == 10) return score;
+
+    if (score == -10) return score;
+
+    if (isMovesLeft2(board) == false) return 0;
+
+    if (isMax) {
+      int best = -1000;
+
+      for (int i = 0; i < 9; i++) {
+        if (board[i] == ' ') {
+          board[i] = opponent;
+
+          best = max(best, minimax2(board, depth + 1, !isMax));
+
+          board[i] = ' ';
+        }
+      }
+      return best;
+    } else {
+      int best = 1000;
+
+      for (int i = 0; i < 9; i++) {
+        if (board[i] == ' ') {
+          board[i] = player;
+
+          best = min(best, minimax2(board, depth + 1, !isMax));
+          board[i] = ' ';
+        }
+      }
+      return best;
+    }
+  }
+
+  int findBestMove2(board) {
+    int bestVal = -1000;
+    int bestMove = -1;
+
+    for (int i = 0; i < 9; i++) {
+      if (board[i] == ' ') {
+        board[i] = opponent;
+
+        int moveVal = minimax2(board, 0, false);
+
+        board[i] = ' ';
+
+        if (moveVal > bestVal) {
+          bestMove = i;
+          bestVal = moveVal;
+        }
+      }
+    }
+    print(bestMove);
+    return bestMove;
+  }
+
+/////////////////////////
+  // T getRandomElement<T>(List<T> list) {
+  //   final random = Random();
+  //   var i = random.nextInt(list.length);
+  //   return list[i];
+  // }
+
+  void computerTturn() {
+    // for (var i = 0; i < locs.length; i++) {
+    // int element = getRandomElement(locs);
+    // if (boxbordindex_value[element] == " ") {
+    playingCounter++;
+    // boxbordindex_value[element] = widget.xo == "X" ? "O" : "X";
+    if (playingCounter < 9) {
+      print(playingCounter);
+      boxbordindex_value[findBestMove2(boxbordindex_value)] =
+          widget.xo == "X" ? "O" : "X";
+    } else {
+      dialog_draw();
+    }
+    // colorx[element] = widget.xo == "X" ? Colors.red : Colors.blue;
+    // findBestMove2(boxbordindex_value);
+    return;
+    // }
+    // }
   }
 
   void ontapFunc(int index) {
@@ -236,7 +370,8 @@ class _SecondtestpageState extends State<Secondtestpage> {
       () {
         if (widget.player_vs_player && boxbordindex_value[index] == ' ') {
           // colorx[index] = playingCounter % 2 == 0 ? Colors.red : Colors.blue;
-          boxbordindex_value[index] = playingCounter % 2 == 0 ? "X" : "O";
+          boxbordindex_value[index] = widget.xo;
+          // boxbordindex_value[index] = playingCounter % 2 == 0 ? "X" : "O";
           playingCounter++;
         } else {
           if (boxbordindex_value[index] == " ") {
@@ -246,9 +381,11 @@ class _SecondtestpageState extends State<Secondtestpage> {
             computerTturn();
           }
         }
+
         checkWinner('X');
         checkWinner('O');
         if (playingCounter == 9) {
+          dialog_draw();
           resetGame();
         }
       },
@@ -320,7 +457,7 @@ class _SecondtestpageState extends State<Secondtestpage> {
   }
 
   void playerWon(String player) {
-    if (player == widget.xo || player == 'X') {
+    if (player == widget.xo) {
       score[0] += 3;
       showDialog(
         context: context,
@@ -331,6 +468,7 @@ class _SecondtestpageState extends State<Secondtestpage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
+                // resetGame();
               },
               child: const Text("okay"),
             )
@@ -348,6 +486,7 @@ class _SecondtestpageState extends State<Secondtestpage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
+                // resetGame();
               },
               child: const Text("okay"),
             )
@@ -355,6 +494,26 @@ class _SecondtestpageState extends State<Secondtestpage> {
         ),
       );
     }
+    resetGame();
+  }
+
+  void dialog_draw() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("DRAW"),
+        content: const Text("NO one won"),
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              // resetGame();
+            },
+            child: const Text("okay"),
+          )
+        ],
+      ),
+    );
     resetGame();
   }
 }

@@ -88,15 +88,29 @@ class ChooseXo extends StatelessWidget {
                           ),
                         ],
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, LandingPage.routeName);
-                          },
-                          child: const Icon(Icons.arrow_back))
+                      // ElevatedButton(
+                      //     onPressed: () {
+                      //       Navigator.pushNamed(context, LandingPage.routeName);
+                      //     },
+                      //     child: const Icon(Icons.arrow_back))
                     ],
                   ),
                 ),
               ),
+              AnimatedPositioned(
+                child: AnimatedOpacity(
+                  duration: const Duration(seconds: 1),
+                  opacity: opa,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, LandingPage.routeName);
+                    },
+                    child: const Icon(Icons.arrow_back),
+                  ),
+                ),
+                bottom: position_of_container,
+                duration: const Duration(seconds: 1),
+              )
               // AnimatedOpacity(
             ],
           )
