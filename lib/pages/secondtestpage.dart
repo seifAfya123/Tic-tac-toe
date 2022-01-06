@@ -68,6 +68,12 @@ class _SecondtestpageState extends State<Secondtestpage> {
         title: const Text("Tic Tac Toe"),
         backgroundColor: Colors.blueGrey,
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: resetGame,
+            icon: const Icon(Icons.restart_alt),
+          )
+        ],
       ),
       body: Container(
         // color: Colors.white,
