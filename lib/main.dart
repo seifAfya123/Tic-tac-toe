@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
               primary: Colors.pink,
             ),
           ),
-          appBarTheme: AppBarTheme(backgroundColor: Colors.blueGrey)),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.blueGrey)),
 
       supportedLocales: L10N.all,
       localizationsDelegates: const [
