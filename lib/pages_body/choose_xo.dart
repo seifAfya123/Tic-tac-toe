@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/pages/landing_page.dart';
-// import 'package:flutter_application_3/pages/second_screen_2.dart';
 import 'package:flutter_application_3/pages/secondtestpage.dart';
 
 class ChooseXo extends StatelessWidget {
@@ -88,11 +87,6 @@ class ChooseXo extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // ElevatedButton(
-                      //     onPressed: () {
-                      //       Navigator.pushNamed(context, LandingPage.routeName);
-                      //     },
-                      //     child: const Icon(Icons.arrow_back))
                     ],
                   ),
                 ),
@@ -111,11 +105,9 @@ class ChooseXo extends StatelessWidget {
                 bottom: position_of_container,
                 duration: const Duration(seconds: 1),
               )
-              // AnimatedOpacity(
             ],
           )
         : Container(
-            // color: Colors.black,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -147,17 +139,17 @@ class ChooseXo extends StatelessWidget {
                       margin: EdgeInsets.all(
                           MediaQuery.of(context).size.width * 0.01),
                       child: ElevatedButton(
-                          onPressed: () {
-                            // mode = null;
-                            Navigator.pushNamed(context, LandingPage.routeName);
-                          },
-                          child: Text(
-                            "Back",
-                            style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.09,
-                            ),
-                          )),
+                        onPressed: () {
+                          // mode = null;
+                          Navigator.pushNamed(context, LandingPage.routeName);
+                        },
+                        child: Text(
+                          "Back",
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.09,
+                          ),
+                        ),
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.all(

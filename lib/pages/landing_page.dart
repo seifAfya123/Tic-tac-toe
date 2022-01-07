@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizaton.dart';
 import 'package:flutter_application_3/pages_body/choose_player_or_computer.dart';
 import 'package:flutter_application_3/pages_body/choose_xo.dart';
-// import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class LandingPage extends StatefulWidget {
   static const String routeName = "landingpage";
@@ -20,7 +18,6 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 500), () {
-// Here you can write your code
       opa = 1;
       setState(() {});
     });
