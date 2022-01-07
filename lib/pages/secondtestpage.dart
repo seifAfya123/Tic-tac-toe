@@ -1,7 +1,4 @@
 // ignore_for_file: use_key_in_widget_constructors, non_constant_identifier_names
-
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/parts/xo_container.dart';
 import 'dart:math';
@@ -13,7 +10,6 @@ class Secondtestpage extends StatefulWidget {
   bool player_vs_player;
   String player1, player2;
   Secondtestpage(this.player_vs_player, this.xo, this.player1, this.player2);
-
   @override
   State<Secondtestpage> createState() => _SecondtestpageState();
 }
@@ -45,7 +41,7 @@ class _SecondtestpageState extends State<Secondtestpage> {
           IconButton(
             onPressed: resetGame,
             icon: const Icon(Icons.restart_alt),
-          )
+          ),
         ],
       ),
       body: Container(
@@ -128,13 +124,14 @@ class _SecondtestpageState extends State<Secondtestpage> {
                 alignment: Alignment.center,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.grey,
-                        Colors.blueGrey,
-                        Colors.grey,
-                      ]),
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Colors.grey,
+                      Colors.blueGrey,
+                      Colors.grey,
+                    ],
+                  ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -165,7 +162,7 @@ class _SecondtestpageState extends State<Secondtestpage> {
                         xocontainer(boxbordindex_value[7], 7, ontapFunc),
                         xocontainer(boxbordindex_value[8], 8, ontapFunc),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -196,8 +193,6 @@ class _SecondtestpageState extends State<Secondtestpage> {
         if (b[row] == opponent)
           return 10;
         else if (b[row] == player) return -10;
-
-        ///
       }
     }
     for (int col = 0; col < 3; col++) {
@@ -230,9 +225,7 @@ class _SecondtestpageState extends State<Secondtestpage> {
       for (int i = 0; i < 9; i++) {
         if (board[i] == ' ') {
           board[i] = opponent;
-
           best = max(best, minimax2(board, depth + 1, !isMax));
-
           board[i] = ' ';
         }
       }
@@ -242,7 +235,6 @@ class _SecondtestpageState extends State<Secondtestpage> {
       for (int i = 0; i < 9; i++) {
         if (board[i] == ' ') {
           board[i] = player;
-
           best = min(best, minimax2(board, depth + 1, !isMax));
           board[i] = ' ';
         }
