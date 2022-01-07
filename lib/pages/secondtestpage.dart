@@ -282,11 +282,14 @@ class _SecondtestpageState extends State<Secondtestpage> {
 
   void ontapFunc(int index) {
     setState(
+      // for player vs player
       () {
         if (widget.player_vs_player && boxbordindex_value[index] == ' ') {
-          boxbordindex_value[index] = widget.xo;
+          boxbordindex_value[index] = playingCounter % 2 == 0 ? "X" : "O";
           playingCounter++;
-        } else {
+        }
+        // for player vs computer
+        else {
           if (boxbordindex_value[index] == " ") {
             playingCounter++;
             boxbordindex_value[index] = widget.xo;
@@ -348,7 +351,7 @@ class _SecondtestpageState extends State<Secondtestpage> {
   }
 
   void playerWon(String player) {
-    if (player == widget.xo) {
+    if (player == widget.xo || player == 'X' && widget.player_vs_player) {
       score[0] += 3;
       showDialog(
         context: context,
